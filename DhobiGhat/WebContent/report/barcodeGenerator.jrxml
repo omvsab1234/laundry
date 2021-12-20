@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BookBarcodes" language="groovy" printOrder="Horizontal" pageWidth="144" pageHeight="842" columnWidth="124" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="59025026-5fc3-43b5-bf7a-9ee423bbf2b0">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="orderId" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select c.cMobile,od.orderId,od.totalQuantity from (select id as q from numberdata where id between 1 and 1000) dt join orderdetails od
+on dt.q <= od.totalQuantity
+inner join customerdetailmodel c on od.cId=c.cId
+ where od.orderId=$P{orderId}]]>
+	</queryString>
+	<field name="cMobile" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="orderId" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="totalQuantity" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="49" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="1" y="4" width="121" height="43" forecolor="#CCCCCC" backcolor="#F4ECEC" uuid="fc1c287e-a22f-489a-86e3-936d29dbe4a8"/>
+			</rectangle>
+			<componentElement>
+				<reportElement x="6" y="17" width="112" height="18" forecolor="#000000" uuid="aa035b1d-1c38-4fdf-b4dc-99a62e9dd8b0"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{orderId}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement x="10" y="35" width="101" height="12" uuid="74af8ae5-88c5-4232-8e4f-f545cc870a70"/>
+				<textElement textAlignment="Center">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orderId}+" @ "+$F{cMobile}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="6" width="78" height="7" uuid="2a04a417-2122-4037-adaf-80a4d3f25be4"/>
+				<textElement>
+					<font size="5" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pearl Clean]]></text>
+			</staticText>
+			<line>
+				<reportElement x="7" y="13" width="110" height="1" forecolor="#666666" uuid="dae83bea-2d53-41fd-86cb-5d3d0bffba0d"/>
+			</line>
+			<textField>
+				<reportElement x="57" y="5" width="57" height="13" uuid="319e1346-1883-4e12-89b3-b927de63b8e5"/>
+				<textElement textAlignment="Right">
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total Quantity : " +$F{totalQuantity}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
